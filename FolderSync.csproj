@@ -7,10 +7,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Logging\" />
-    <Folder Include="Comparer\" />
-    <Folder Include="Commands\" />
-  </ItemGroup>
-
 </Project>

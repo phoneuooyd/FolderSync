@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FolderSync.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,10 +10,12 @@ namespace FolderSync.Commands
     public class DeleteFileCommand : IFileCommand
     {
         private readonly string _path;
+        private readonly ILogger _logger;
 
-        public DeleteFileCommand(string path)
+        public DeleteFileCommand(string path, ILogger logger)
         {
             _path = path;
+            _logger = logger;
         }
 
         public void Execute()
@@ -20,6 +23,7 @@ namespace FolderSync.Commands
             if (File.Exists(_path))
             {
                 File.Delete(_path);
+                _logger.Log($"Deleted {_path}");
             }
         }
     }

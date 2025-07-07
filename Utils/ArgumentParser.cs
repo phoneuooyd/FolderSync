@@ -1,4 +1,4 @@
-﻿using System;
+﻿        using System;
 using System.IO;
 using FolderSync.Models;
 using FolderSync.Exceptions;
@@ -21,6 +21,7 @@ namespace FolderSync.Utils
             if (Directory.Exists(logFile))
                 throw new InvalidArgumentsException($"Log file path points to a directory: {logFile}");
 
+            // Tworzenie katalogu dla pliku logów   
             var logDir = Path.GetDirectoryName(logFile);
             if (!string.IsNullOrEmpty(logDir) && !Directory.Exists(logDir))
             {
@@ -34,10 +35,31 @@ namespace FolderSync.Utils
                 }
             }
 
+            // Tworzenie katalogu źródłowego jeśli nie istnieje
             if (!Directory.Exists(source))
-                throw new InvalidArgumentsException($"Source folder not found: {source}");
+            {
+                try
+                {
+                    Directory.CreateDirectory(source);
+                }
+                catch (Exception ex)
+                {
+                    throw new InvalidArgumentsException($"Failed to create source directory '{source}': {ex.Message}");
+                }
+            }
+
+            // Tworzenie katalogu repliki jeśli nie istnieje
             if (!Directory.Exists(replica))
-                Directory.CreateDirectory(replica);
+            {
+                try
+                {
+                    Directory.CreateDirectory(replica);
+                }
+                catch (Exception ex)
+                {
+                    throw new InvalidArgumentsException($"Failed to create replica directory '{replica}': {ex.Message}");
+                }
+            }
 
             return new SyncConfig(source, replica, interval, logFile);
         }

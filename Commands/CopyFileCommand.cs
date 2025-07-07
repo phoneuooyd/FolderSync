@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using FolderSync.Logging;
 
 namespace FolderSync.Commands
 {
@@ -10,11 +7,13 @@ namespace FolderSync.Commands
     {
         private readonly string _source;
         private readonly string _destination;
+        private readonly ILogger _logger;
 
-        public CopyFileCommand(string source, string destination)
+        public CopyFileCommand(string source, string destination, ILogger logger)
         {
             _source = source;
             _destination = destination;
+            _logger = logger;
         }
 
         public void Execute()
@@ -25,6 +24,7 @@ namespace FolderSync.Commands
                 Directory.CreateDirectory(directory!);
             }
             File.Copy(_source, _destination, true);
+            _logger.Log($"Copied {_source} to {_destination}");
         }
     }
 }
