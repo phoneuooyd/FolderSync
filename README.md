@@ -34,13 +34,14 @@ FolderSync is a console application built with .NET 8 that continuously monitors
 
 The application follows clean architecture principles with clear separation of concerns:
 FolderSync/
-??? Commands/           # Command pattern for file operations
-??? Comparers/          # File comparison logic
-??? Exceptions/         # Custom exception types
-??? Logging/           # Logging infrastructure
-??? Models/            # Data models and configuration
-??? Services/          # Core synchronization service
-??? Utils/             # Utility classes
+Commands/           # Command pattern for file operations
+Comparers/          # File comparison logic
+Exceptions/         # Custom exception types
+Logging/           # Logging infrastructure
+Models/            # Data models and configuration
+Services/          # Core synchronization service
+Utils/             # Utility classes
+
 ## Prerequisites
 
 - .NET 8.0 Runtime or SDK
@@ -110,17 +111,5 @@ The application includes comprehensive error handling:
 - **Logging**: Timestamped entries with dual output
 - **Architecture**: Command pattern, dependency injection, clean separation
 
-## Development
-
-### Project Structure
-- Uses modern C# features including records and nullable reference types
-- Implements SOLID principles
-- Follows dependency injection patterns
-- Includes comprehensive error handling
-
-### Building from Sourcedotnet restore
-dotnet build
-### Running Testsdotnet test
-## License
 
 This project is developed as a test task for Veeam Software.
