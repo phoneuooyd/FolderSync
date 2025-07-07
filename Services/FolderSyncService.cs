@@ -24,7 +24,6 @@ namespace FolderSync.App
 
         public void Run()
         {
-            // Sprawdzenie i utworzenie katalogów przed rozpoczęciem synchronizacji
             EnsureDirectoriesExist();
 
             while (true)

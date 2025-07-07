@@ -20,8 +20,7 @@ namespace FolderSync.Utils
 
             if (Directory.Exists(logFile))
                 throw new InvalidArgumentsException($"Log file path points to a directory: {logFile}");
-
-            // Tworzenie katalogu dla pliku logów   
+  
             var logDir = Path.GetDirectoryName(logFile);
             if (!string.IsNullOrEmpty(logDir) && !Directory.Exists(logDir))
             {
@@ -35,7 +34,6 @@ namespace FolderSync.Utils
                 }
             }
 
-            // Tworzenie katalogu źródłowego jeśli nie istnieje
             if (!Directory.Exists(source))
             {
                 try
@@ -48,7 +46,6 @@ namespace FolderSync.Utils
                 }
             }
 
-            // Tworzenie katalogu repliki jeśli nie istnieje
             if (!Directory.Exists(replica))
             {
                 try
