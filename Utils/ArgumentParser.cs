@@ -1,4 +1,4 @@
-﻿        using System;
+﻿using System;
 using System.IO;
 using FolderSync.Models;
 using FolderSync.Exceptions;
@@ -18,9 +18,12 @@ namespace FolderSync.Utils
                 throw new InvalidArgumentsException("Interval must be a positive integer");
             var logFile = args[3];
 
+            if (IsSameDirectory(source, replica))
+                throw new InvalidArgumentsException("Source and replica paths cannot be the same directory");
+
             if (Directory.Exists(logFile))
                 throw new InvalidArgumentsException($"Log file path points to a directory: {logFile}");
-  
+
             var logDir = Path.GetDirectoryName(logFile);
             if (!string.IsNullOrEmpty(logDir) && !Directory.Exists(logDir))
             {
@@ -59,6 +62,20 @@ namespace FolderSync.Utils
             }
 
             return new SyncConfig(source, replica, interval, logFile);
+        }
+
+        private static bool IsSameDirectory(string path1, string path2)
+        {
+            try
+            {
+                var fullPath1 = Path.GetFullPath(path1);
+                var fullPath2 = Path.GetFullPath(path2);
+                return string.Equals(fullPath1, fullPath2, StringComparison.OrdinalIgnoreCase);
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }
