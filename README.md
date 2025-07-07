@@ -86,9 +86,13 @@ dotnet run -- "/home/user/documents" "/home/user/backup/documents" 60 "/var/log/
 
 ### Logging Output2024-01-15 10:30:00 - Created source directory: C:\Source
 2024-01-15 10:30:00 - Created replica directory: C:\Replica
+
 2024-01-15 10:30:01 - Copied C:\Source\file1.txt to C:\Replica\file1.txt
+
 2024-01-15 10:30:15 - Deleted C:\Replica\oldfile.txt
+
 2024-01-15 10:30:15 - Deleted directory C:\Replica\oldfolder
+
 ## Stopping the Application
 
 To stop the synchronization process:
