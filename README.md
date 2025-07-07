@@ -30,18 +30,6 @@ FolderSync is a console application built with .NET 8 that continuously monitors
 - **Combined logging**: Simultaneous logging to both destinations
 - **Operation tracking**: Logs all copy, delete, and directory operations
 
-## Architecture
-
-The application follows clean architecture principles with clear separation of concerns:
-FolderSync/
-Commands/           # Command pattern for file operations
-Comparers/          # File comparison logic
-Exceptions/         # Custom exception types
-Logging/           # Logging infrastructure
-Models/            # Data models and configuration
-Services/          # Core synchronization service
-Utils/             # Utility classes
-
 ## Prerequisites
 
 - .NET 8.0 Runtime or SDK
