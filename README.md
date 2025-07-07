@@ -67,10 +67,13 @@ dotnet run -- "<source-path>" "<replica-path>" <interval-seconds> "<log-file-pat
 
 ### Example Commands
 
-**Windows:**dotnet run -- "C:\MyDocuments" "C:\Backup\MyDocuments" 60 "C:\Logs\sync.log"
-**Linux/macOS:**
-dotnet run -- "/home/user/documents" "/home/user/backup/documents" 60 "/var/log/foldersync.log"
-**Relative paths:**dotnet run -- "./source" "./replica" 30 "./logs/sync.log"
+**Windows: **dotnet run -- "C:\MyDocuments" "C:\Backup\MyDocuments" 60 "C:\Logs\sync.log"
+
+**Linux/macOS: **dotnet run -- "/home/user/documents" "/home/user/backup/documents" 60 "/var/log/foldersync.log"
+
+**Relative paths: **dotnet run -- "./source" "./replica" 30 "./logs/sync.log"
+
+
 ## Behavior
 
 ### Automatic Directory Creation
