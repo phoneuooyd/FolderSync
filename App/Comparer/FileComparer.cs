@@ -16,10 +16,15 @@ namespace FolderSync.Comparers
                 return true; 
             }
 
-            if (sourceInfo.LastWriteTimeUtc != replicaInfo.LastWriteTimeUtc)
+            using var fs1 = File.OpenRead(sourceFile);
+            using var fs2 = File.OpenRead(replicaFile);
+            int b1, b2;
+            do
             {
-                return true;
-            }
+                b1 = fs1.ReadByte();
+                b2 = fs2.ReadByte();
+                if (b1 != b2) return true;
+            } while (b1 != -1);
 
             return CompareFileContentsByHash(sourceFile, replicaFile);
         }

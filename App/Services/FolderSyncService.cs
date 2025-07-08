@@ -30,7 +30,7 @@ namespace FolderSync.App
         public void Run()
         {
             EnsureDirectoriesExist();
-            _logger.Log("FolderSync service started with enhanced directory protection");
+            _logger.Log("FolderSync service started");
 
             while (true)
             {
