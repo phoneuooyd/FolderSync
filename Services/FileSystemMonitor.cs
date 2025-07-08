@@ -22,11 +22,9 @@ namespace FolderSync.Services
         {
             var currentTime = DateTime.Now;
             
-            // Sprawdzenie czy g³ówne katalogi istniej¹
             CheckDirectoryHealth(_config.SourcePath, "source");
             CheckDirectoryHealth(_config.ReplicaPath, "replica");
 
-            // Sprawdzenie czy nie ma podejrzanej aktywnoœci (np. drastyczne zmiany w liczbie plików)
             CheckForSuspiciousActivity();
 
             _lastHealthChecks["last_check"] = currentTime;
@@ -47,11 +45,10 @@ namespace FolderSync.Services
 
                 _logger.Log($"HEALTH CHECK: {directoryType} directory - Files: {fileCount}, Subdirectories: {directoryCount}");
 
-                // Sprawdzenie czy nie ma drastycznych zmian w liczbie plików
                 if (_lastFileCounts.TryGetValue(directoryType, out var lastCount))
                 {
                     var changePercentage = Math.Abs((double)(fileCount - lastCount) / Math.Max(lastCount, 1)) * 100;
-                    if (changePercentage > 50 && lastCount > 10) // Ponad 50% zmian i wiêcej ni¿ 10 plików wczeœniej
+                    if (changePercentage > 50 && lastCount > 10)
                     {
                         _logger.Log($"WARNING: Significant change in {directoryType} directory file count: {lastCount} -> {fileCount} ({changePercentage:F1}% change)");
                     }
@@ -69,7 +66,6 @@ namespace FolderSync.Services
         {
             try
             {
-                // Sprawdzenie czy katalogi source i replica nie s¹ przypadkiem tymi samymi
                 if (Directory.Exists(_config.SourcePath) && Directory.Exists(_config.ReplicaPath))
                 {
                     var sourceFullPath = Path.GetFullPath(_config.SourcePath);
@@ -81,13 +77,12 @@ namespace FolderSync.Services
                     }
                 }
 
-                // Sprawdzenie czy katalogi nie zosta³y zamienione miejscami
                 if (_lastFileCounts.TryGetValue("source", out var sourceCount) && 
                     _lastFileCounts.TryGetValue("replica", out var replicaCount))
                 {
                     if (sourceCount == 0 && replicaCount > 0)
                     {
-                        _logger.Log("WARNING: Source directory is empty while replica has files. This may indicate a configuration error.");
+                        _logger.Log("WARNING: Source directory is empty while replica has files. This may indicate unexpected intervention.");
                     }
                 }
             }
@@ -102,7 +97,6 @@ namespace FolderSync.Services
             if (!_lastHealthChecks.TryGetValue("last_check", out var lastCheck))
                 return true;
 
-            // Wykonuj sprawdzenie co 5 minut
             return DateTime.Now - lastCheck > TimeSpan.FromMinutes(5);
         }
     }
