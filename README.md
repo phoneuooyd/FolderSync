@@ -153,7 +153,9 @@ To stop the synchronization process:
 
 ## Development
 
-### Project StructureFolderSync/
+### Project Structure
+
+FolderSync/
 - Commands -            Command pattern for file operations
 - Comparers -           File comparison logic
 - Exceptions -          Custom exception types
@@ -161,7 +163,10 @@ To stop the synchronization process:
 - Models -              Data models and configuration
 - Services -            Core synchronization and protection services
 - Utils -               Utility classes
-### Building from Sourcedotnet restore
+### Building from Source
+
+dotnet restore
+
 dotnet build
 
 This project is developed as a test task for Veeam Software.
