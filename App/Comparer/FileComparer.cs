@@ -12,21 +12,15 @@ namespace FolderSync.Comparers
             var replicaInfo = new FileInfo(replicaFile);
 
             if (sourceInfo.Length != replicaInfo.Length)
-            {
                 return true; 
-            }
 
-            using var fs1 = File.OpenRead(sourceFile);
-            using var fs2 = File.OpenRead(replicaFile);
-            int b1, b2;
-            do
-            {
-                b1 = fs1.ReadByte();
-                b2 = fs2.ReadByte();
-                if (b1 != b2) return true;
-            } while (b1 != -1);
+            if(CompareFileContentsByHash(sourceFile, replicaFile))
+                return true;
 
-            return CompareFileContentsByHash(sourceFile, replicaFile);
+            if (CompareFileContentsByByteComparison(sourceFile, replicaFile))
+                return true;
+
+            return false;
         }
 
         private bool CompareFileContentsByHash(string sourceFile, string replicaFile)
@@ -40,6 +34,20 @@ namespace FolderSync.Comparers
             var replicaHash = md5.ComputeHash(replicaStream);
 
             return !sourceHash.SequenceEqual(replicaHash);
+        }
+
+        private bool CompareFileContentsByByteComparison(string sourceFile, string replicaFile)
+        {
+            using var fs1 = File.OpenRead(sourceFile);
+            using var fs2 = File.OpenRead(replicaFile);
+            int b1, b2;
+            do
+            {
+                b1 = fs1.ReadByte();
+                b2 = fs2.ReadByte();
+                if (b1 != b2) return true;
+            } while (b1 != -1);
+            return false; 
         }
     }
 }

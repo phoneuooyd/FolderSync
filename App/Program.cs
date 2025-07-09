@@ -12,9 +12,9 @@ namespace FolderSync
             try
             {
                 var config = ArgumentParser.Parse(args);
-                var fileLogger = new FileLogger(config.LogFilePath);
-                var consoleLogger = new ConsoleLogger();
-                var combinedLogger = new CombinedLogger(fileLogger, consoleLogger);
+                using var fileLogger = new FileLogger(config.LogFilePath);
+                using var consoleLogger = new ConsoleLogger();
+                using var combinedLogger = new CombinedLogger(fileLogger, consoleLogger);
                 var syncService = new FolderSyncService(config, combinedLogger);
                 
                 Console.WriteLine($"Starting folder synchronization...");
