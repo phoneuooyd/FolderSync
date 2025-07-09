@@ -11,7 +11,7 @@ FolderSync is a console application built with .NET 8 that continuously monitors
 ## Features
 
 ### Core Functionality
-- **One-way synchronization**: Source directory ? Replica directory
+- **One-way synchronization**: Source directory -> Replica directory
 - **Periodic synchronization**: Runs at user-defined intervals
 - **Automatic directory creation**: Creates missing directories automatically
 - **File content comparison**: Uses MD5 hash comparison for file integrity
@@ -51,6 +51,7 @@ cd FolderSync
 ## Usage
 
 ### Basic Commanddotnet run -- "<source-path>" "<replica-path>" <interval-seconds> "<log-file-path>"
+
 ### Parameters
 
 | Parameter | Description | Example |
@@ -62,10 +63,18 @@ cd FolderSync
 
 ### Example Commands
 
-**Windows:**dotnet run -- "C:\MyDocuments" "C:\Backup\MyDocuments" 60 "C:\Logs\sync.log"
+**Windows:**
+
+dotnet run -- "C:\MyDocuments" "C:\Backup\MyDocuments" 60 "C:\Logs\sync.log"
+
 **Linux/macOS:**
+
 dotnet run -- "/home/user/documents" "/home/user/backup/documents" 60 "/var/log/foldersync.log"
-**Relative paths:**dotnet run -- "./source" "./replica" 30 "./logs/sync.log"
+
+**Relative paths:**
+
+dotnet run -- "./source" "./replica" 30 "./logs/sync.log"
+
 ## Behavior
 
 ### Automatic Directory Creation
@@ -85,16 +94,27 @@ dotnet run -- "/home/user/documents" "/home/user/backup/documents" 60 "/var/log/
 - **Deleted files**: Removed from replica if no longer in source
 - **Directories**: Created/removed to match source structure
 
-### Logging Output2024-01-15 10:30:00 - FolderSync service started with enhanced directory protection
+### Logging Output
+2024-01-15 10:30:00 - FolderSync service started with enhanced directory protection
+
 2024-01-15 10:30:00 - Created source directory: C:\Source
+
 2024-01-15 10:30:00 - Created replica directory: C:\Replica
+
 2024-01-15 10:30:01 - Copied C:\Source\file1.txt to C:\Replica\file1.txt
+
 2024-01-15 10:30:15 - Deleted C:\Replica\oldfile.txt
+
 2024-01-15 10:30:15 - Deleted directory C:\Replica\oldfolder
+
 2024-01-15 10:35:00 - HEALTH CHECK: source directory - Files: 15, Subdirectories: 3
+
 2024-01-15 10:35:00 - HEALTH CHECK: replica directory - Files: 15, Subdirectories: 3
+
 2024-01-15 10:40:00 - RECOVERY: Source directory was missing and has been recreated: C:\Source
+
 2024-01-15 10:40:00 - PROTECTION: Prevented deletion on protected directory: C:\Replica
+
 ## Error Handling and Recovery
 
 The application includes comprehensive error handling and recovery mechanisms:
@@ -126,7 +146,7 @@ To stop the synchronization process:
 
 - **Framework**: .NET 8
 - **Language**: C# 12
-- **File comparison**: MD5 hash-based content verification
+- **File comparison**: MD5 hash-based content verification, byte-by-byte comparison 
 - **Logging**: Timestamped entries with dual output
 - **Architecture**: Command pattern, dependency injection, clean separation
 - **Protection services**: Dedicated directory protection and monitoring services
@@ -134,16 +154,14 @@ To stop the synchronization process:
 ## Development
 
 ### Project StructureFolderSync/
-??? Commands/           # Command pattern for file operations
-??? Comparers/          # File comparison logic
-??? Exceptions/         # Custom exception types
-??? Logging/            # Logging infrastructure
-??? Models/             # Data models and configuration
-??? Services/           # Core synchronization and protection services
-??? Utils/              # Utility classes
+- Commands -            Command pattern for file operations
+- Comparers -           File comparison logic
+- Exceptions -          Custom exception types
+- Logging -             Logging infrastructure
+- Models -              Data models and configuration
+- Services -            Core synchronization and protection services
+- Utils -               Utility classes
 ### Building from Sourcedotnet restore
 dotnet build
-### Running Testsdotnet test
-## License
 
 This project is developed as a test task for Veeam Software.
